@@ -34,7 +34,7 @@ namespace ConsoleApp1.Animals
             {
                 if (value <= 0)
                 {
-                    throw new Exception("Stamoqse taroxutyune chi karox linel 0 ic cacr!");//Liskov Substitution Principle..naxapaymane chem xstacrel jarang klassum,het paymane chem tulacrel jarang klassum,invariant gorcum e bolor jarang klassnerum
+                    throw new Exception("Stamoqse taroxutyune chi karox linel 0 ic cacr!");
                 }
                 _maxWeightStomach = value;
             }
