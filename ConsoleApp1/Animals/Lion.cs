@@ -10,6 +10,10 @@ namespace ConsoleApp1.Animals
 {
     class Lion : Animal, IWalk, IRun
     {
+        public Lion(GenderAnimal gender) : base("Lion", gender)
+        {
+
+        }
         public Lion(int year, int currentws, IStrategy strategy, GenderAnimal gender) : base("Lion", gender)
         {
             Strategy = strategy;

@@ -8,8 +8,12 @@ using System.Timers;
 
 namespace ConsoleApp1.Animals
 {
-    class Monkey:Animal, IWalk, IRun
+    class Monkey:Animal, IWalk, IRun,ClimbATree
     {
+        public Monkey(GenderAnimal gender) :base("Monkey",gender)
+        {
+
+        }
         public Monkey(int year, int currentws, IStrategy strategy, GenderAnimal gender) : base("Monkey", gender)
         {
             Strategy = strategy;
@@ -82,6 +86,11 @@ namespace ConsoleApp1.Animals
         public void Run()
         {
             Console.WriteLine($"{Name} is runing!");
+        }
+
+        public void Climb()
+        {
+            Console.WriteLine("Kapike maglcum e cari vra");
         }
     }
 }
