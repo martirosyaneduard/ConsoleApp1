@@ -1,18 +1,19 @@
-﻿using ConsoleApp1.Foods;
+﻿using ConsoleApp1.Cages;
+using ConsoleApp1.Foods;
 using ConsoleApp1.ImplementStrategy_DesignPattern_;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Timers;
-
-
 
 namespace ConsoleApp1.Animals
 {
-    abstract class Animal
+    public abstract class Animal
     {
         protected IStrategy Strategy;
         protected Timer Timer { get; set; }
+        private Cage _animalCage;
         public GenderAnimal Gender { get; }
         protected List<Food> Foods { get; set; }
         private int _maxWeightStomach;
@@ -24,6 +25,24 @@ namespace ConsoleApp1.Animals
         {
             Name = name;
             this.Gender = gender;
+        }
+
+        public void SetCage(Cage cage)
+        {
+            _animalCage = cage;
+            _animalCage.FoodArived += _animalCage_FoodArived;
+        }
+
+        private void _animalCage_FoodArived()
+        {
+            var food = _animalCage.Foods.FirstOrDefault(f => CanEatOrNot(f));
+            if (food == null)
+                return;
+            if (CanEatOrNot(food))
+            {
+                _animalCage.RemoveFood(food);
+                Eat(food);
+            }
         }
 
         public string Name { get; set; }
