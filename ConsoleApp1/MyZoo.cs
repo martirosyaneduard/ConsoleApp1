@@ -14,8 +14,6 @@ namespace ConsoleApp1
         {
             this.Address = address;
             this.Cages = new List<Cage>();
-            Cages.Add(new CageOfLions(20, 10, 2));
-            Cages.Add(new CageOfMonkeys(15, 10, 5));
         }
         public void AddAnimalInCage(Animal animal)
         {

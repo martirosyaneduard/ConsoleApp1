@@ -14,7 +14,7 @@ namespace ConsoleApp1.Animals
         {
 
         }
-        public Lion(int year, int currentws, IStrategy strategy, GenderAnimal gender) : base("Lion", gender)
+        public Lion(int year, double currentws, IStrategy strategy, GenderAnimal gender) : base("Lion", gender)
         {
             Strategy = strategy;
 
@@ -42,7 +42,7 @@ namespace ConsoleApp1.Animals
         }
 
         
-        protected override bool AliveOrNot()
+        public override bool AliveOrNot()
         {
             if (CurrentWeightStomach <= -30)
             {

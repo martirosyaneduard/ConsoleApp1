@@ -117,7 +117,7 @@ namespace ConsoleApp1.Animals
             }
             return false;
         }
-        protected virtual bool AliveOrNot()
+        public virtual bool AliveOrNot()
         {
             if (CurrentWeightStomach < 0)
             {

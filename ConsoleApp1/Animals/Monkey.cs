@@ -8,13 +8,13 @@ using System.Timers;
 
 namespace ConsoleApp1.Animals
 {
-    class Monkey:Animal, IWalk, IRun,ClimbATree
+    class Monkey : Animal, IWalk, IRun, ClimbATree
     {
-        public Monkey(GenderAnimal gender) :base("Monkey",gender)
+        public Monkey(GenderAnimal gender) : base("Monkey", gender)
         {
 
         }
-        public Monkey(int year, int currentws, IStrategy strategy, GenderAnimal gender) : base("Monkey", gender)
+        public Monkey(int year, double currentws, IStrategy strategy, GenderAnimal gender) : base("Monkey", gender)
         {
             Strategy = strategy;
 
@@ -42,7 +42,7 @@ namespace ConsoleApp1.Animals
         }
 
 
-        protected override bool AliveOrNot()
+        public override bool AliveOrNot()
         {
             if (CurrentWeightStomach <= -10)
             {
