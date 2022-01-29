@@ -1,6 +1,6 @@
 ﻿namespace ConsoleApp1.ImplementStrategy_DesignPattern_
 {
-    interface IStrategy
+    public interface IStrategy
     {
         double HowToAnimalHungry(double a);
     }

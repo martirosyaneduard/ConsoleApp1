@@ -1,6 +1,6 @@
 ﻿namespace ConsoleApp1
 {
-    internal enum GenderAnimal
+    public enum GenderAnimal
     {
         Male,
         Female
