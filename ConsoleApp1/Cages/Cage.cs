@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using ConsoleApp1.Animals;
 using ConsoleApp1.Foods;
 
@@ -16,10 +15,20 @@ namespace ConsoleApp1.Cages
         public List<Animal> Animals { get; set; } = new List<Animal>();
         public event Action FoodArived;
 
-        public void AddAnimal(Animal animal)
+        public ValidationType AddAnimal(Animal animal)
         {
-            Animals.Add(animal);
-            animal.SetCage(this);
+            if (Animals.Count >= 6)
+            {
+                return ValidationType.NoPlace;
+            }
+            if (animal is Lion)
+            {
+                Animals.Add(animal);
+                animal.SetCage(this);
+                return ValidationType.Access;
+            }
+            return ValidationType.InvalidType;
+
         }
 
         public void RemoveFood(Food food)

@@ -8,7 +8,7 @@ namespace ConsoleApp1.Cages
     internal interface ICage
     {
         List<Animal> Animals { get; set; }
-        void AddAnimal(Animal animal);
+        ValidationType AddAnimal(Animal animal);
         event Action FoodArived;
         public void PutFood(Food food);
         void RemoveFood(Food food);

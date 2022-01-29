@@ -83,20 +83,21 @@ namespace ConsoleApp1.Animals
             }
         }
         public abstract void Voice();
-        public virtual void Eat(Food food)
+        public virtual ValidationType Eat(Food food)
         {
             if (AliveOrNot())
             {
                 log.Information($"Duq porcum eq kerakrel satkac {Name} in");
-                return;
+                return ValidationType.ObjectIsDie;
             }
             if (!CanEatOrNot(food))
             {
-                throw new Exception($"{Name} utum e miayn {Foods.ToString()}");
+                Console.WriteLine($"{Name} utum e miayn {Foods.ToString()}");
+                return ValidationType.InvalidType;
             }
             if (IsValid())
             {
-                return;
+                return ValidationType.IsDontHungry;
             }
             if (CurrentWeightStomach < 0)
             {
@@ -111,6 +112,7 @@ namespace ConsoleApp1.Animals
             {
                 CurrentWeightStomach += food.Weight;
             }
+            return ValidationType.Access;
         }
         protected virtual bool CanEatOrNot(Food food)
         {
