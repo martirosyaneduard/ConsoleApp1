@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
+using ConsoleApp1.CustomAttributes;
 
 namespace ConsoleApp1.Loger
 {
+    [Developer("Eduard Martirosyan","Intern")]
     class Log : ILog
     {
         private static Log _instance;
