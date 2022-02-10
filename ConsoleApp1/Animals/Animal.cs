@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
+using ConsoleApp1.CustomAttributes;
+
 
 namespace ConsoleApp1.Animals
 {
@@ -33,16 +35,17 @@ namespace ConsoleApp1.Animals
             _animalCage.FoodArived += _animalCage_FoodArived;
         }
 
-        private void _animalCage_FoodArived()
+        private void _animalCage_FoodArived(object sender, EventArgs e)
         {
+
             var lfood = _animalCage.Foods.FirstOrDefault(f => CanEatOrNot(f));
             if (lfood == null)
                 return;
-                _animalCage.RemoveFood(lfood);
-                Eat(lfood);         
+            _animalCage.RemoveFood(lfood);
+            Eat(lfood);
         }
-
         public string Name { get; set; }
+        [MyValidation(50, ErrorMessage = "MaxWeightStomach dont can big 50")]
         protected int MaxWeightStomach
         {
             get { return _maxWeightStomach; }
@@ -116,15 +119,22 @@ namespace ConsoleApp1.Animals
         }
         protected virtual bool CanEatOrNot(Food food)
         {
-            foreach (Food item in Foods)
+            IEnumerable<Food> local = Foods.Where(x => x.FoodType == food.FoodType);//Artush jan jisht em poxel foreache LINQ ov?
+            if (local != null)
             {
-                if (food.GetType() == item.GetType())
-                {
-                    Console.WriteLine($"{Name} can eat {item}");
-                    return true;
-                }
+                Console.WriteLine($"{Name} can eat {food}");
+                return true;
             }
             return false;
+            //foreach (Food item in Foods)
+            //{
+            //    if (food.FoodType == item.FoodType)
+            //    {
+            //        Console.WriteLine($"{Name} can eat {item}");
+            //        return true;
+            //    }
+            //}
+            //return false;
         }
         protected bool IsValid()
         {

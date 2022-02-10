@@ -25,7 +25,7 @@ namespace ConsoleApp1
         {
             Animal lion = new Lion(2016, 5, new StrategyA(), GenderAnimal.Male);
             cage.AddAnimal(lion);
-            cage.PutFood(new Meat(25));
+            cage.PutFood(new Food(25,TypesOfFood.Meat));
         }
         public static void GetAttribute(Type type)
         {

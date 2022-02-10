@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ConsoleApp1.Animals;
 using ConsoleApp1.Foods;
+using ConsoleApp1.Events;
 
 namespace ConsoleApp1.Cages
 {
@@ -13,7 +14,7 @@ namespace ConsoleApp1.Cages
         private List<Food> _foods { get; set; } = new List<Food>();
         public List<Food> Foods => _foods;
         public List<Animal> Animals { get; set; } = new List<Animal>();
-        public event Action FoodArived;
+        public event EventHandler<MyEventArgs> FoodArived;
 
         public ValidationType AddAnimal(Animal animal)
         {
@@ -39,7 +40,9 @@ namespace ConsoleApp1.Cages
         public void PutFood(Food food)
         {
             _foods.Add(food);
-            FoodArived?.Invoke();
+            EventHandler<MyEventArgs> handler = FoodArived;
+            MyEventArgs myEvent = new MyEventArgs(DateTime.Now);
+            handler?.Invoke(this,myEvent);
         }
 
 

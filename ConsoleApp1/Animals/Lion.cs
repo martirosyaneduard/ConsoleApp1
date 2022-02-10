@@ -23,7 +23,7 @@ namespace ConsoleApp1.Animals
             Timer.Elapsed += _timer_Elapsed;
 
             Foods = new List<Food>();
-            Foods.Add(new Meat());
+            Foods.Add(new Food(25,TypesOfFood.Meat));
 
             this.DateOfBirth = year;
             this.MaxWeightStomach = HowMaxStomach();
