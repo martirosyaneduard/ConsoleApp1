@@ -4,24 +4,17 @@ using ConsoleApp1.ImplementStrategy_DesignPattern_;
 using Serilog;
 using System;
 using System.Collections.Generic;
-using System.Timers;
 
 namespace ConsoleApp1.Animals
 {
     class Monkey : Animal, IWalk, IRun, ClimbATree
     {
-        public Monkey(GenderAnimal gender) : base("Monkey", gender)
+        public Monkey(GenderAnimal gender,IStrategy strategy ) : base("Monkey", gender,strategy)
         {
 
         }
-        public Monkey(int year, double currentws, IStrategy strategy, GenderAnimal gender) : base("Monkey", gender)
+        public Monkey(int year, double currentws, IStrategy strategy, GenderAnimal gender) : base("Monkey", gender,strategy)
         {
-            Strategy = strategy;
-
-
-            Timer = new Timer(15000);
-            Timer.Elapsed += _timer_Elapsed;
-
             Foods = new List<Food>();
             Foods.Add(new Food(20, TypesOfFood.Banana));
 
@@ -31,17 +24,9 @@ namespace ConsoleApp1.Animals
         }
         ~Monkey()
         {
-            Timer.Stop();
             log.Information($"{Name} is Die");
             Log.CloseAndFlush();
         }
-
-        private void _timer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            CurrentWeightStomach = Strategy.HowToAnimalHungry(CurrentWeightStomach);
-        }
-
-
         public override bool AliveOrNot()
         {
             if (CurrentWeightStomach <= -10)
@@ -55,7 +40,6 @@ namespace ConsoleApp1.Animals
         {
             Console.WriteLine($"Voic {Name}");
         }
-
         public void Walking()
         {
             Console.WriteLine($"{Name} is walking");

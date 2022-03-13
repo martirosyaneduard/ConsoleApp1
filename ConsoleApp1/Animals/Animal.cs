@@ -5,16 +5,14 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Timers;
 using ConsoleApp1.CustomAttributes;
-
+using System.Threading;
 
 namespace ConsoleApp1.Animals
 {
     public abstract class Animal
     {
-        protected IStrategy Strategy;
-        protected Timer Timer { get; set; }
+        private IStrategy Strategy;
         private Cage _animalCage;
         public GenderAnimal Gender { get; }
         protected List<Food> Foods { get; set; }
@@ -23,10 +21,12 @@ namespace ConsoleApp1.Animals
         protected ILogger log = new LoggerConfiguration().MinimumLevel.Information().WriteTo.Console().WriteTo.File("log.txt", rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true).CreateLogger();
 
 
-        public Animal(string name, GenderAnimal gender)
+        public Animal(string name, GenderAnimal gender,IStrategy strategy)
         {
+            this.Strategy = strategy;
             Name = name;
             this.Gender = gender;
+            HungryProcess();
         }
 
         public void SetCage(Cage cage)
@@ -86,9 +86,27 @@ namespace ConsoleApp1.Animals
             }
         }
         public abstract void Voice();
+
+        private void HungryProcess()
+        {
+            Thread thread = new Thread(() =>
+            {
+                while (true)
+                {
+                    Thread.Sleep(20000);
+                    CurrentWeightStomach = Strategy.HowToAnimalHungry(CurrentWeightStomach);
+                    if (!AliveOrNot())
+                    {
+                        return;
+                    }
+                }
+            });
+            thread.IsBackground = true;
+            thread.Start();
+        }
         public virtual ValidationType Eat(Food food)
         {
-            if (AliveOrNot())
+            if (!AliveOrNot())
             {
                 log.Information($"Duq porcum eq kerakrel satkac {Name} in");
                 return ValidationType.ObjectIsDie;
@@ -117,6 +135,8 @@ namespace ConsoleApp1.Animals
             }
             return ValidationType.Access;
         }
+
+
         protected virtual bool CanEatOrNot(Food food)
         {
             IEnumerable<Food> local = Foods.Where(x => x.FoodType == food.FoodType);//Artush jan jisht em poxel foreache LINQ ov?
@@ -150,9 +170,9 @@ namespace ConsoleApp1.Animals
             if (CurrentWeightStomach < 0)
             {
                 Console.WriteLine($"{Name} is die");
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
     }
 }
